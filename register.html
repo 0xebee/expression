@@ -8,6 +8,9 @@
     <meta charset="utf-8">
 	
 <script src="js/firebase.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     
@@ -22,6 +25,7 @@
     <link href="css/main.css" rel="stylesheet">
     <style>
         body  {
+overflow-y:auto;
         padding-top: 40px;
         }
     </style>
@@ -39,10 +43,12 @@
     <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 	
 </head>
-<body id="service" style="background:url(images/background1.jpg);background-size:contain;">
+<body id="service" style="background:url(images/background1.jpg);background-size:contain;overflow-y:auto;">
 <script>
 var rootRef = new Firebase('https://expression.firebaseio.com/');
-		
+    Parse.initialize("kZIpEU8jwAo8RLIPz8YZhdaeoueV37z5LW1gDS3W", "5hzg95uP6no40WxtuZ8bk44wVi2bbMlc0vc26aEg");
+    var NoteOb = Parse.Object.extend("Note");    
+
 </script>
   <div class="container">
         <!-- Nav Menu -->
@@ -52,7 +58,6 @@ var rootRef = new Firebase('https://expression.firebaseio.com/');
                 <li><a href="index.html">Home</a></li>
                 <li><a href="register.html">Make A Present</a></li>
 				<li><a href="about.html">About Me</a></li>
-                <li><a href="contact.html">Contact</a></li>
             </ul>
             <ul>
                 <li><a href="#" class="fa fa-twitter">Twitter</a></li>
@@ -80,7 +85,7 @@ var rootRef = new Firebase('https://expression.firebaseio.com/');
             </div>
             <div class="col-md-3 col-sm-6">
                 <h2>BirthDay</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                <p>Celebrate your day with grandeur and style... I just want to see you smile. So be ready and up and about.. We going to have a blast as you eat your tricle tart.. We going to dance and lose it all<br /> As it's ur special day.</p>
             </div>
             <div class="clearfix visible-sm"></div>
             <div class="col-md-3 col-sm-6 text-center">
@@ -97,7 +102,7 @@ var rootRef = new Firebase('https://expression.firebaseio.com/');
         <div class="row animated fadeInUpBig">
             <div class="col-md-3 col-sm-6">
                 <h2>Valentine</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                <p>Sometimes even words fall short of expressing how much your valentine means to you.<br /> Go beyond words... indulge more than one sense...</p>
             </div>
             <div class="col-md-3 col-sm-6 text-center">
                 <span class="fa-stack fa-5x animated">
@@ -108,7 +113,7 @@ var rootRef = new Firebase('https://expression.firebaseio.com/');
             <div class="clearfix visible-sm"></div>
             <div class="col-md-3 col-sm-6">
                 <h2>Other</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                <p>Why follow the norms<br /> creat your own occassion.</p>
             </div>
             <div class="col-md-3 col-sm-6 text-center">
                 <span class="fa-stack fa-5x animated">
@@ -261,6 +266,9 @@ document.getElementById("image").value="Enter a valid image url";
 		code =code+y[x];
 		j=j+1;
 		};
+
+
+
 		store = function(form){
 		var username = document.getElementById('name').value;
 		var userfriend = document.getElementById('friend').value;
@@ -269,6 +277,7 @@ document.getElementById("image").value="Enter a valid image url";
 		console.log(context);
 		var done =true;
 		var typedata = "wrong";
+		loadurl();
 		console.log(username);
 var xhttp = new XMLHttpRequest();
 xhttp.open('HEAD', imgurl);
@@ -294,7 +303,7 @@ document.getElementById("resultform").style.display="block";
 document.getElementById("codeinform").innerHTML = "Here is your code : "+code;
 lk = path.indexOf("com/");
 path = path.substring(lk+4);
-document.getElementById("copytext").value="http://www.tickervalue.com/prototype1/Expression/giftbox.html?"+path;
+document.getElementById("copytext").value="http://myexpression.in/giftbox.html?"+path;
 console.log(path);
 
 };
@@ -313,7 +322,7 @@ document.getElementById("resultform").style.display="block";
 document.getElementById("codeinform").innerHTML = "Here is your code : "+code;
 lk = path.indexOf("com/");
 path = path.substring(lk+4);
-document.getElementById("copytext").value="http://www.tickervalue.com/prototype1/Expression/giftbox.html?"+path;
+document.getElementById("copytext").value="http://myexpression.in/giftbox.html?"+path;
 console.log(path);
 
 		}
@@ -328,13 +337,77 @@ break;
 };
 };
 		}
-		</script>
+
+
+var uploaded=function(){
+      var fileUploadControl = $("#profilePhotoFileUpload")[0];
+      if (fileUploadControl.files.length > 0) {
+      var file = fileUploadControl.files[0];
+      var name = "photo.jpg";
+      console.log("Length"+fileUploadControl.files.length);
+      var parseFile = new Parse.File(name, file);
+      parseFile.save().then(function() {
+          // The file has been saved to Parse.
+      }, function(error) {
+         // The file either could not be read, or could not be saved to Parse.
+      });
+      var jobApplication = new NoteOb();
+      var name = document.getElementById("name").value;
+      jobApplication.set("applicantName", name);
+      jobApplication.set("applicantResumeFile", parseFile);
+      //jobApplication.save();
+jobApplication.save().then(function() {
+download();
+//alert("done");
+  // The file has been saved to Parse.
+}, function(error) {
+  // The file either could not be read, or could not be saved to Parse.
+});      
+console.log(jobApplication.get("applicantResumeFile").url);
+      //document.getElementById("image").src=jobApplication.get("applicantResumeFile").url;
+      }
+console.log("fuck");
+
+      };
+ var download=function(){
+alert("yes");
+      	var query = new Parse.Query(NoteOb);
+query.equalTo("applicantName", document.getElementById("name").value);
+
+        	query.find({
+success:function(results) {
+//$.mobile.loading("hide");
+var s = "";
+console.log(results.length);
+for(var i=0; i<results.length; i++) {
+//Lame - should be using a template
+//s += "<p>";
+//s += "<h3>Note " + results[i].createdAt + "</h3>";
+var pic= results[i].get("applicantResumeFile");
+//var pic = results[i].get("picture");
+if(pic) {
+document.getElementById("urlim").src=pic.url();
+document.getElementById("image").value=pic.url();
+console.log(pic.url());
+}
+
+}
+
+},error:function(e) {
+
+ console.log(e);
+}
+});
+   
+}		</script>
 		<div id="register" style="min-height:700px;padding-top:100px;">
 		<form action="" method="post" class="white-pink">
     <h1 style="text-align:center;">Get A Gift 
         <span id ="warning">Please fill all the texts in the fields.</span>
     </h1>
-    <label>
+<img src="images/gift_box.png" height="100px" width="100px" style="position:relative;top:-100px;"/>
+<div style="position:relative;top:-70px;">    
+<label>
         <span>Your Name :</span>
         <input id="name" type="text" name="name" placeholder="Your Full Name" />
     </label>
@@ -361,16 +434,19 @@ position: relative;
 top: -64px;
 right: -380px;
 float: right;"/></span>
-<input type="button" class ="button" value="check" onclick="loadurl();"/>
+
+<!--<input type="button" class ="button" value="check" onclick="loadurl();"/> -->
+<input type="file" id="profilePhotoFileUpload">
+<input id ="upload"type="button" style ="position:relative;top:-30px;left:200px;"class ="button" value="upload" onclick="uploaded();"/>
     </label>
-     
         
      <label>
         <span>&nbsp;</span> 
-        <input type="button" class="button" value="Send" onclick="store(this);" style="position: relative;
-left: 50px;
-top: -46px;" /> 
-    </label>    
+	
+        <input type="button" class="button" src="images/gift_box.png" value="Send" onclick="store(this);" style="position: relative;
+left: 60px;
+top: -26px;" /> 
+    </label> </div>   
 </form>
 <div id="resultform" style="display:none;">
 <h1 id = "codeinform" style="text-align: center;
