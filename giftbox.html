@@ -63,7 +63,7 @@
             <ul>
                 <li><a href="#" class="fa fa-twitter">Twitter</a></li>
                 <li><a href="#" class="fa fa-google-plus">Google+</a></li>
-                <li><a href="#" class="fa fa-facebook">Facebook</a></li>
+                <li><a href="https://www.facebook.com/pages/Expression/593632024075917" target="blank" class="fa fa-facebook">Facebook</a></li>
             </ul>
         </nav><!-- /Nav Menu -->
         <div class="row text-right animated fadeInRightBig">
@@ -77,7 +77,7 @@
 		var o = u.substring(i+13);
 		var valu =[];
 		console.log(o);
-		var newRef = new Firebase('https://expression.firebaseio.com/'+o+'/');
+		var newRef = new Firebase('https://myexpression.firebaseio.com/'+o+'/');
 		newRef.on('child_added', function (snapshot) {
   var newPost1 = snapshot.val();
   valu.push(newPost1);
@@ -92,20 +92,20 @@
 	var klkl = valu[0];
 	if(klkl =='1'){
 	document.getElementById('rolling').innerHTML = "Special bday Wishes to ";
-	document.getElementById('rolling1').innerHTML = valu[3];}
+	document.getElementById('rolling1').innerHTML = valu[4];}
 	if(klkl =='2'){
-	document.getElementById('rolling').innerHTML = "Special Gift To My";
-	document.getElementById('rolling1').innerHTML = valu[3];
+	document.getElementById('rolling').innerHTML = "Special Gift To My Valentine";
+	document.getElementById('rolling1').innerHTML = valu[4];
 	}
 	if(klkl =='4'){
 	document.getElementById('rolling').innerHTML = "Happy New Year";
-	document.getElementById('rolling1').innerHTML = valu[3];
+	document.getElementById('rolling1').innerHTML = valu[4];
 	}
 	if(klkl =='3'){
 	document.getElementById('rolling').innerHTML = "Special Gift To Special ";
-	document.getElementById('rolling1').innerHTML = valu[3];}
-	document.getElementById('rolling2').innerHTML = "A present From ";
-	document.getElementById('rolling3').innerHTML = valu[4];
+	document.getElementById('rolling1').innerHTML = valu[4];}
+	document.getElementById('rolling2').innerHTML = "A present From ur";
+	document.getElementById('rolling3').innerHTML = valu[5];
 	
 	$('#rolling').fadeIn(3000);
 	setTimeout(function(){
@@ -225,7 +225,7 @@ var audio12 = document.getElementById('audio12');
 		audio12.play();
     console.log(document.getElementById('pass').value);
 if(document.getElementById('pass').value.length == 5){
-if(document.getElementById('pass').value == valu[2]){
+if(document.getElementById('pass').value == valu[3]){
 document.getElementById('passco').style.opacity = 1;
 		$('#passco').fadeOut(0000);
 		$('#passco').fadeIn(3000);
@@ -238,7 +238,7 @@ document.getElementById('pianoo').style.top = "0px";
 setTimeout(function(){
 var audio1 = document.getElementById('audio1');
         var source = document.getElementById('mp3Sourcel');
-        source.src= "welcome.mp3";
+        source.src= valu[2];
         audio1.load();
 		audio1.play();},2000);
 setTimeout(function () {

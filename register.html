@@ -23,11 +23,22 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+
     <style>
         body  {
 overflow-y:auto;
         padding-top: 40px;
         }
+.loader {
+display:none;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('http://i.imgur.com/4c4ySEG.gif') 50% 50% no-repeat rgba(0,0,0,0.3);
+}
     </style>
     
     <!-- Favicon and Touch Icons -->
@@ -43,9 +54,10 @@ overflow-y:auto;
     <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 	
 </head>
-<body id="service" style="background:url(images/background1.jpg);background-size:contain;overflow-y:auto;">
+<body id="service" style="background:url(images/background1.jpg);background-size:auto;background-repeat: no-repeat;background-attachment:fixed ;overflow-y:auto;">
+<div class="loader"></div>
 <script>
-var rootRef = new Firebase('https://expression.firebaseio.com/');
+var rootRef = new Firebase('https://myexpression.firebaseio.com/');
     Parse.initialize("kZIpEU8jwAo8RLIPz8YZhdaeoueV37z5LW1gDS3W", "5hzg95uP6no40WxtuZ8bk44wVi2bbMlc0vc26aEg");
     var NoteOb = Parse.Object.extend("Note");    
 
@@ -56,13 +68,14 @@ var rootRef = new Firebase('https://expression.firebaseio.com/');
             <a href="#" class="k-menu-trigger"><span>Menu</span></a>
             <ul>
                 <li><a href="index.html">Home</a></li>
+                <li><a href="demo.html">Demo</a></li>
                 <li><a href="register.html">Make A Present</a></li>
 				<li><a href="about.html">About Me</a></li>
             </ul>
             <ul>
                 <li><a href="#" class="fa fa-twitter">Twitter</a></li>
                 <li><a href="#" class="fa fa-google-plus">Google+</a></li>
-                <li><a href="#" class="fa fa-facebook">Facebook</a></li>
+                <li><a href="https://www.facebook.com/pages/Expression/593632024075917" target="blank" class="fa fa-facebook">Facebook</a></li>
             </ul>
         </nav><!-- /Nav Menu -->
         <script>
@@ -85,7 +98,8 @@ var rootRef = new Firebase('https://expression.firebaseio.com/');
             </div>
             <div class="col-md-3 col-sm-6">
                 <h2>BirthDay</h2>
-                <p>Celebrate your day with grandeur and style... I just want to see you smile. So be ready and up and about.. We going to have a blast as you eat your tricle tart.. We going to dance and lose it all<br /> As it's ur special day.</p>
+                <p>Greet your dear ones on their special day
+a dash of surprise, a pinch of exicitement, and liberal amounts of love<br /> As it's ur special day.</p>
             </div>
             <div class="clearfix visible-sm"></div>
             <div class="col-md-3 col-sm-6 text-center">
@@ -96,7 +110,9 @@ var rootRef = new Firebase('https://expression.firebaseio.com/');
             </div>
             <div class="col-md-3 col-sm-6">
                 <h2>FriendShip</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                <p>Friends have no expectations but it is worth while to express now and then how mush they mean to you. 
+what are you wating for? 
+go on...</p>
             </div>
         </div>
         <div class="row animated fadeInUpBig">
@@ -231,6 +247,10 @@ var rootRef = new Firebase('https://expression.firebaseio.com/');
 }
 		</style>
 		<script>
+
+
+var defaultmusic = "http://myexpression.in/welcome.mp3";
+var condom = Math.floor((Math.random() * 100) + 1);
 		loadurl = function(){
 		var xhttp = new XMLHttpRequest();
 xhttp.open('HEAD', document.getElementById('image').value);
@@ -270,6 +290,7 @@ document.getElementById("image").value="Enter a valid image url";
 
 
 		store = function(form){
+		window.scrollTo(0,document.body.scrollHeight);
 		var username = document.getElementById('name').value;
 		var userfriend = document.getElementById('friend').value;
 		var imgurl = document.getElementById('image').value;
@@ -296,7 +317,7 @@ document.getElementById("image").value="Enter a valid image url";
 		if(typedata.indexOf("image")!= -1){
 		document.getElementById("urlim").src=imgurl;
 		var newMessageRef = rootRef.push();
-    newMessageRef.set({ 'context': context, 'imgurl': imgurl,'passcode':code,'userfriend':userfriend ,'username':username});
+    newMessageRef.set({ 'context': context, 'imgurl': imgurl,'passcode':code,'userfriend':userfriend ,'username':username,'music':defaultmusic});
 // We've appended a new message to the message_list location.
 var path = newMessageRef.toString();
 document.getElementById("resultform").style.display="block";
@@ -315,7 +336,7 @@ console.log(kl);
 		if(kl==".jpg" || kl ==".png" || kl ==".gif"){
 		document.getElementById("urlim").src=imgurl;
 		var newMessageRef = rootRef.push();
-    newMessageRef.set({ 'context': context, 'imgurl': imgurl,'passcode':code,'userfriend':userfriend ,'username':username});
+    newMessageRef.set({ 'context': context, 'imgurl': imgurl,'passcode':code,'userfriend':userfriend ,'username':username,'music':defaultmusic});
 // We've appended a new message to the message_list location.
 var path = newMessageRef.toString();
 document.getElementById("resultform").style.display="block";
@@ -338,8 +359,9 @@ break;
 };
 		}
 
-
 var uploaded=function(){
+	$(".loader").fadeIn(1000);
+
       var fileUploadControl = $("#profilePhotoFileUpload")[0];
       if (fileUploadControl.files.length > 0) {
       var file = fileUploadControl.files[0];
@@ -353,7 +375,7 @@ var uploaded=function(){
       });
       var jobApplication = new NoteOb();
       var name = document.getElementById("name").value;
-      jobApplication.set("applicantName", name);
+      jobApplication.set("applicantName", name.concat(condom));
       jobApplication.set("applicantResumeFile", parseFile);
       //jobApplication.save();
 jobApplication.save().then(function() {
@@ -370,9 +392,8 @@ console.log("fuck");
 
       };
  var download=function(){
-alert("yes");
       	var query = new Parse.Query(NoteOb);
-query.equalTo("applicantName", document.getElementById("name").value);
+query.equalTo("applicantName", (document.getElementById("name").value).concat(condom));
 
         	query.find({
 success:function(results) {
@@ -386,6 +407,7 @@ for(var i=0; i<results.length; i++) {
 var pic= results[i].get("applicantResumeFile");
 //var pic = results[i].get("picture");
 if(pic) {
+	$(".loader").fadeOut(1000);
 document.getElementById("urlim").src=pic.url();
 document.getElementById("image").value=pic.url();
 console.log(pic.url());
@@ -399,8 +421,104 @@ console.log(pic.url());
 }
 });
    
-}		</script>
+}		
+
+
+//music upload
+var uploadedmusic=function(){
+	$(".loader").fadeIn(1000);
+      var fileUploadControl = $("#musicUpload")[0];
+      if (fileUploadControl.files.length > 0) {
+      var file = fileUploadControl.files[0];
+      var name = "music.mp3";
+      console.log("Length"+fileUploadControl.files.length);
+      var parseFile = new Parse.File(name, file);
+      parseFile.save().then(function() {
+          // The file has been saved to Parse.
+      }, function(error) {
+         // The file either could not be read, or could not be saved to Parse.
+      });
+      var jobApplication = new NoteOb();
+      var name = document.getElementById("name").value;
+      jobApplication.set("applicantName", name.concat(condom).concat("music"));
+      jobApplication.set("applicantResumeFile", parseFile);
+      //jobApplication.save();
+jobApplication.save().then(function() {
+downloadmusic();
+  // The file has been saved to Parse.
+}, function(error) {
+  // The file either could not be read, or could not be saved to Parse.
+});      
+console.log(jobApplication.get("applicantResumeFile").url);
+      //document.getElementById("image").src=jobApplication.get("applicantResumeFile").url;
+      }
+console.log("fuck");
+
+      };
+
+
+
+var downloadmusic=function(){
+
+      	var query = new Parse.Query(NoteOb);
+query.equalTo("applicantName", (document.getElementById("name").value).concat(condom).concat("music"));
+
+        	query.find({
+success:function(results) {
+//$.mobile.loading("hide");
+var s = "";
+console.log(results.length);
+for(var i=0; i<results.length; i++) {
+//Lame - should be using a template
+//s += "<p>";
+//s += "<h3>Note " + results[i].createdAt + "</h3>";
+var pic= results[i].get("applicantResumeFile");
+//var pic = results[i].get("picture");
+if(pic) {
+	$(".loader").fadeOut(1000);
+document.getElementById("musicid").innerHTML=pic.url();
+defaultmusic= pic.url();
+console.log(pic.url());
+}
+
+}
+
+},error:function(e) {
+
+ console.log(e);
+}
+});
+   
+}		
+
+
+
+
+
+
+uploadfileactive = function(){
+
+document.getElementById("fileactive").checked=true;
+document.getElementById("profilePhotoFileUpload").style.display="block";
+document.getElementById("upload").style.display="block";
+document.getElementById("image").style.display="none";
+document.getElementById("sendbutton").style.left="100px";
+
+};
+uploadurlactive = function(){
+document.getElementById("urlactive").checked=true;
+document.getElementById("profilePhotoFileUpload").style.display="none";
+document.getElementById("upload").style.display="none";
+document.getElementById("image").style.display="block";
+document.getElementById("image").style.position="relative";
+document.getElementById("image").style.left="100px";
+document.getElementById("sendbutton").style.top="0px";
+document.getElementById("sendbutton").style.left="0px";
+};
+
+</script>
 		<div id="register" style="min-height:700px;padding-top:100px;">
+<h1 id="musicid" style="display:none;">music</h1>
 		<form action="" method="post" class="white-pink">
     <h1 style="text-align:center;">Get A Gift 
         <span id ="warning">Please fill all the texts in the fields.</span>
@@ -424,9 +542,25 @@ console.log(pic.url());
         <option value="4">Other</option>
         </select>
     </label>
-    <label>
+<label>
+        <span>Upload song:</span>
+<input type="file" style="display:block;width:160px;" id="musicUpload">
+<input id ="uploadmusic"type="button" style ="position:relative;top:-30px;left:200px;display:block;"class ="button" value="upload music" onclick="uploadedmusic();"/>
+
+
+</label>
+<label>
         <span>Your Friend Image:</span>
-        <input id="image" type="text" name="image" placeholder="Your Friend's Image Link(make sure valid link)" />
+</label>
+
+	<input type="radio" id ="fileactive"name="upload" value="file" onclick="uploadfileactive();"checked >File
+<span>&nbsp;</span> 
+	<span>&nbsp;</span> 
+<input type="radio" id="urlactive" name="upload" value="url"  onclick="uploadurlactive();">Url
+    
+<label>
+<br /><br />
+        <input id="image" type="text" style="display:none;"name="image" placeholder="Your Friend's Image Link(make sure valid link)" />
 		<span><img id = "urlim" style="display: block;
 width: 50px;
 height: 50px;
@@ -436,14 +570,15 @@ right: -380px;
 float: right;"/></span>
 
 <!--<input type="button" class ="button" value="check" onclick="loadurl();"/> -->
-<input type="file" id="profilePhotoFileUpload">
-<input id ="upload"type="button" style ="position:relative;top:-30px;left:200px;"class ="button" value="upload" onclick="uploaded();"/>
+<input type="file" style="display:block;width:160px;" id="profilePhotoFileUpload">
+<input id ="upload"type="button" style ="position:relative;top:-30px;left:200px;display:block;"class ="button" value="upload image" onclick="uploaded();"/>
+
     </label>
         
      <label>
         <span>&nbsp;</span> 
 	
-        <input type="button" class="button" src="images/gift_box.png" value="Send" onclick="store(this);" style="position: relative;
+        <input type="button" id="sendbutton" class="button" src="images/gift_box.png" value="Send" onclick="store(this);" style="position: relative;
 left: 60px;
 top: -26px;" /> 
     </label> </div>   
@@ -460,7 +595,7 @@ font-size: 30px;">Here is your code : </h1>
     </div>
 		</div>
     </div><!-- /.container -->
-
+    
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>
@@ -471,6 +606,7 @@ font-size: 30px;">Here is your code : </h1>
 
     <!-- Google Analytics -->
     <script></script>
+
 </body>
 
 </html>

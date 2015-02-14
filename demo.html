@@ -6,11 +6,12 @@
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-   
-    <title>Expression</title>    
+    
+    <title>Konefix - A Portfolio Theme</title>    
     <meta name="description" content="">
-    <meta name="author" content="Pasquale" >
+    <meta name="author" content="">
 
     <!-- Stylesheet -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -29,41 +30,46 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-57-precomposed.png">
-    
+<style>
+
+video #bgvid {
+position: fixed; right: 0; bottom: 0;
+min-width: 100%; min-height: 100%;
+width: auto; height: auto; z-index: -100;
+background: url(polina.jpg) no-repeat;
+background-size: cover;
+}
+</style>
     <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 
-<body id="home">
-    <div class="wrap">
-        <div class="container-fluid">
-            <!-- Nav Menu -->
-            <nav id="k-menu" class="k-menu">
-                <a href="#" class="k-menu-trigger"><span>Menu</span></a>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
+<body id="blog">
+<video autoplay loop poster="about_header.JPG" id="bgvid">
+<source src="i.webm" type="video/webm">
+<source src="i.mp4" type="video/mp4">
+</video>
+    <div class="container">
+
+
+        <!-- Nav Menu -->
+        <nav id="k-menu" class="k-menu">
+            <a href="#" class="k-menu-trigger"><span>Menu</span></a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="demo.html">Demo</a></li>
                 <li><a href="register.html">Make A Present</a></li>
-				<li><a href="about.html">About Me</a></li>
-                </ul>
-                <ul>
-                    <li><a href="#" class="fa fa-twitter">Twitter</a></li>
-                    <li><a href="#" class="fa fa-google-plus">Google+</a></li>
-                    <li><a href="https://www.facebook.com/pages/Expression/593632024075917" target = "blank" class="fa fa-facebook">Facebook</a></li>
-                </ul>
-            </nav><!-- /Nav Menu -->
-            
-            <!-- Welcome -->
-            <div class="row text-center animated bounceIn">
-                <div class="col-md-12">
-                    <i class="fa fa-camera-retro logo"></i>
-                    <h1>Welcome to Expression</h1>
-                    <h2>A Beautiful Way to express your wishes</h2>
-                    <p>Click on the top left corner</p>
-                </div>
-            </div><!-- /Welcome -->
-        </div><!-- /.container -->
-    </div><!-- /.wrap -->
-
+                <li><a href="about.html">About me</a></li>
+            </ul>
+            <ul>
+                <li><a href="#" class="fa fa-twitter">Twitter</a></li>
+                <li><a href="#" class="fa fa-google-plus">Google+</a></li>
+                <li><a href="#" class="fa fa-facebook">Facebook</a></li>
+            </ul>
+        </nav><!-- /Nav Menu -->
+        <!-- Main -->
+         </div>
+        </div>
+       
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>
